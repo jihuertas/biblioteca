@@ -1,0 +1,10 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <p>¿Estás seguro de borrar este libro: "{{ object }}"?</p>
+    <input type="submit" value="Confirmar" />
+</form>
+
+
+{% endblock %}

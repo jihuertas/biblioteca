@@ -1,0 +1,13 @@
+{% extends 'books/base.html' %}
+{% block content %}
+    {% for book in object_list %}
+        <article>
+            <p>Título: {{ book.titulo }}</p>
+            {% if book.portada %}
+            <img src="{{ book.portada.url }}">
+            {% endif %}
+            
+            <a href="{% url 'detail-book' pk=book.pk %}" role="button">Detalle</a>
+        </article>
+    {% endfor %}
+{% endblock %}

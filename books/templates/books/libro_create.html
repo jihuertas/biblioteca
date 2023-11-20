@@ -1,0 +1,16 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+    <form action="{% url 'create-book' %}" method="post">
+        {% csrf_token %}
+        {{ forms.management_form }}
+
+        {% for form in forms %}
+            {{ form }}
+        {% endfor %}
+        <input type="submit"/>
+
+    </form>
+
+
+{% endblock %}

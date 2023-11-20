@@ -1,0 +1,11 @@
+{% extends 'books/base.html' %}
+{% block content %}
+    
+        <article>
+            <p>title: {{ object.titulo }}</p>
+            <p>author: {{ object.autores }}</p>
+            <p>rating: {{ object.rating }}</p>
+        </article>
+        <a href="{% url 'update-book' pk=object.pk %}" role="button">Editar</a>
+        <a href="{% url 'delete-book' pk=object.pk %}" role="button">Eliminar</a>
+{% endblock %}
