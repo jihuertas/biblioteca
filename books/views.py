@@ -2,6 +2,8 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
@@ -17,11 +19,11 @@ from books.models import Libro, Prestamo
 #     def get(self, request):
 #         return render(request, 'books/list_book.html', context={'books': Book.objects.all().order_by('-created_at')})
 
-class ListBookView(ListView):
+class ListBookView(LoginRequiredMixin, ListView):
     model = Libro
     queryset = Libro.objects.filter(disponibilidad='disponible')
 
-class ListBookPrestadoView(ListView):
+class ListBookPrestadoView(LoginRequiredMixin, ListView):
     model = Prestamo
     template_name = 'books/libros_prestados_usuario.html'
     
@@ -38,22 +40,22 @@ class ListBookPrestadoView(ListView):
     
 
 
-class DetailBookView(DetailView):
+class DetailBookView(LoginRequiredMixin, DetailView):
     model = Libro
     #template_name = 'books/book_detail.html'
 
-class UpdateBookView(UpdateView):
+class UpdateBookView(LoginRequiredMixin, UpdateView):
     model= Libro
     fields = ['titulo', 'autores', 'editorial', 'rating', 'fecha_publicacion','genero', 'ISBN', 'resumen','portada']
     template_name="books/libro_update.html"
     success_url = reverse_lazy("list-book")
     
-class DeleteBookView(DeleteView):
+class DeleteBookView(LoginRequiredMixin, DeleteView):
     model= Libro
     #fields = ['title', 'author', 'rating']
     success_url = reverse_lazy("list-book")
 
-class CreateBookView(View):
+class CreateBookView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'books/libro_create.html',
                       context={'forms': formset_factory(BookForm, extra=3)})
@@ -73,7 +75,7 @@ class CreateBookView(View):
                           context={'forms': formset})
 
 
-
+@login_required
 def realizar_prestamo(request, pk):
     libro = get_object_or_404(Libro, pk=pk)
 
@@ -100,6 +102,7 @@ def realizar_prestamo(request, pk):
     
     return render(request, 'books/realizar_prestamo.html', {'libro': libro})
 
+@login_required
 def devolver_libro(request, pk):
     libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad='prestado')
     prestamo = Prestamo.objects.filter(libro=libro_prestado, usuario=request.user, estado='prestado').first()

@@ -1,10 +1,13 @@
 from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
 from books.views import DeleteBookView, ListBookView, CreateBookView, DetailBookView, UpdateBookView, ListBookPrestadoView
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('', ListBookView.as_view(), name='list-book'),
     path('prestados', ListBookPrestadoView.as_view(), name='libros-prestados'),
     path('book/new', CreateBookView.as_view(), name='create-book'),

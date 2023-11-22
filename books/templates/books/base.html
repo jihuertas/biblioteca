@@ -13,9 +13,18 @@
             <li><strong>Book Store</strong></li>
         </ul>
         <ul>
+            {% if user.is_authenticated %}
+            <!-- El usuario está autenticado -->
             <li><a href="{% url 'create-book' %}" role="button">Agregar Libro</a></li>
             <li><a href="{% url 'list-book' %}" role="button">Libros disponibles</a></li>
             <li><a href="{% url 'libros-prestados' %}" role="button">Mis libros</a></li>
+            <li><a href="{% url 'logout' %}" role="button">Cerrar Sesión</a></li>
+            {% else %}
+                <!-- El usuario no está autenticado -->
+                <li><a href="{% url 'login' %}" role="button">Iniciar Sesión</a></li>            
+            {% endif %}
+
+            
         </ul>
     </nav>
 </header>
