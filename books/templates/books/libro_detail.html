@@ -2,10 +2,23 @@
 {% block content %}
     
         <article>
-            <p>title: {{ object.titulo }}</p>
-            <p>author: {{ object.autores }}</p>
-            <p>rating: {{ object.rating }}</p>
+            <h2>{{ libro.titulo }}</h2>
+            <p>Autor: {{ libro.autor }}</p>
+            <p>Editorial: {{ libro.editorial }}</p>
+            <p>Fecha de Publicación: {{ libro.fecha_publicacion }}</p>
+            <p>Género: {{ libro.genero }}</p>
+            <p>ISBN: {{ libro.ISBN }}</p>
+            <p>Resumen: {{ libro.resumen }}</p>
+            
+            <p>Disponibilidad: {% if libro.disponibilidad == 'disponible' %} Disponible {% else %} No disponible {% endif %}</p>
+            
+           
+
+ 
         </article>
-        <a href="{% url 'update-book' pk=object.pk %}" role="button">Editar</a>
-        <a href="{% url 'delete-book' pk=object.pk %}" role="button">Eliminar</a>
+        {% if libro.disponibilidad == 'disponible' %}
+        <a href="{% url 'realizar-prestamo' pk=libro.pk %}" role="button">Realizar Préstamo</a>
+        {% endif %}
+        <a href="{% url 'update-book' pk=libro.pk %}" role="button">Editar</a>
+        <a href="{% url 'delete-book' pk=libro.pk %}" role="button">Eliminar</a>
 {% endblock %}

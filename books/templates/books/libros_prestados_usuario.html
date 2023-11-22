@@ -1,0 +1,30 @@
+{% extends 'books/base.html' %}
+{% block content %}
+<h1>Libros Prestados</h1>
+    
+        {% for prestamo in prestamos_prestados %}
+        <article>
+           <p>{{ prestamo.libro.titulo }} </p>
+           <p>Fecha de Préstamo: {{ prestamo.fecha_prestamo }} </p>
+           <p>Fecha de Devolución: {{ prestamo.fecha_devolucion }}</p>
+            <a href="{% url 'devolver-libro' pk=prestamo.libro.pk %}" role="button">Devolver</a>
+        </article>
+            
+        {% empty %}
+            <p>No tienes libros prestados en este momento.</p>
+        {% endfor %}
+    
+        <h1>Libros Devueltos</h1>
+    
+        {% for prestamo in prestamos_devueltos %}
+        <article>
+            <p>{{ prestamo.libro.titulo }} </p>
+            <p>Fecha de Préstamo: {{ prestamo.fecha_prestamo }} </p>
+            <p>Fecha de Devolución: {{ prestamo.fecha_devolucion }}</p>
+        </article>
+            
+        {% empty %}
+            <p>No tienes libros devueltos en este momento.</p>
+        {% endfor %}
+
+{% endblock %}

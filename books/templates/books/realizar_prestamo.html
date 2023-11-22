@@ -1,0 +1,16 @@
+{% extends 'books/base.html' %}
+{% block content %}
+    <h1>Realizar Préstamo</h1>
+        <article>
+            <p>title: {{ libro.titulo }}</p>
+            <p>author: {{ libro.autores }}</p>
+            <p>rating: {{ libro.fecha_publicacion }}</p>
+        </article>
+        
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirmar Préstamo">
+    </form>
+
+{% endblock %}

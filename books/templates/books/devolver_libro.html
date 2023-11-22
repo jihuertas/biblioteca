@@ -1,0 +1,17 @@
+{% extends 'books/base.html' %}
+{% block content %}
+    <h1>Devolver libros</h1>
+        <article>
+            <p>title: {{ libro.titulo }}</p>
+            <p>author: {{ libro.autores }}</p>
+            <p>rating: {{ libro.fecha_publicacion }}</p>
+        </article>
+        
+        <p>¿Estás seguro que deseas devolver este libro?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirmar Devolución">
+    </form>
+
+{% endblock %}

@@ -7,7 +7,7 @@
             <img src="{{ book.portada.url }}">
             {% endif %}
             
-            <a href="{% url 'detail-book' pk=book.pk %}" role="button">Detalle</a>
+            <p><a href="{% url 'detail-book' pk=book.pk %}" role="button">Detalle</a></p>
         </article>
     {% endfor %}
 {% endblock %}
