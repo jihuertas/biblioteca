@@ -45,12 +45,20 @@ class Libro(Model):
     def __str__(self):
         return self.titulo
 
+class Usuario(AbstractUser):
+    # Agrega cualquier campo adicional que desees para el usuario
+    dni = models.CharField(max_length=10, unique=True)
+    direccion = models.CharField(max_length=200)
+    telefono = models.CharField(max_length=15)
 
+    def __str__(self):
+        return self.username
+    
 class Prestamo(models.Model):
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
     fecha_prestamo = models.DateField()
     fecha_devolucion = models.DateField(null=True, blank=True)
-    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     ESTADO_CHOICES = (
         ('prestado', 'Prestado'),
@@ -61,11 +69,4 @@ class Prestamo(models.Model):
     def __str__(self):
         return f"Prestamo de {self.libro.titulo} a {self.usuario}"
 
-class Usuario(AbstractUser):
-    # Agrega cualquier campo adicional que desees para el usuario
-    dni = models.CharField(max_length=10, unique=True)
-    direccion = models.CharField(max_length=200)
-    telefono = models.CharField(max_length=15)
 
-    def __str__(self):
-        return self.username

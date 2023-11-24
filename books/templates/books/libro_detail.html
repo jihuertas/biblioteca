@@ -3,7 +3,12 @@
     
         <article>
             <h2>{{ libro.titulo }}</h2>
-            <p>Autor: {{ libro.autor }}</p>
+            <p>Autor/es: 
+                {% for autor in libro.autores.all %}
+                 {{ autor.nombre }}{% if not forloop.last %}, {% endif %}
+                {% endfor%}
+             
+            </p>
             <p>Editorial: {{ libro.editorial }}</p>
             <p>Fecha de Publicación: {{ libro.fecha_publicacion }}</p>
             <p>Género: {{ libro.genero }}</p>
