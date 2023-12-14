@@ -14,18 +14,12 @@ class Autor(models.Model):
     def __str__(self):
         return self.nombre
     
-class Editorial(models.Model):
-    nombre = models.CharField(max_length=100)
-    direccion = models.CharField(max_length=200)
-    sitio_web = models.URLField()
 
-    def __str__(self):
-        return self.nombre
      
 class Libro(Model):
     titulo = models.CharField(max_length=200)
     autores = models.ManyToManyField(Autor)
-    editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
+    editorial = models.ForeignKey("Editorial", on_delete=models.CASCADE)
     rating = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
     fecha_publicacion = models.DateField()
     genero = models.CharField(max_length=100)
@@ -44,7 +38,14 @@ class Libro(Model):
     
     def __str__(self):
         return self.titulo
+    
+class Editorial(models.Model):
+    nombre = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=200)
+    sitio_web = models.URLField()
 
+    def __str__(self):
+        return self.nombre
 class Usuario(AbstractUser):
     # Agrega cualquier campo adicional que desees para el usuario
     dni = models.CharField(max_length=10, unique=True)

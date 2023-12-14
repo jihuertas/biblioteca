@@ -31,6 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "books.Usuario"
+
 # Application definition
 
 INSTALLED_APPS = [

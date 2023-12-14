@@ -112,6 +112,7 @@ def devolver_libro(request, pk):
         prestamo.estado = 'devuelto'
         prestamo.fecha_devolucion = date.today()
         prestamo.save()
+        
 
         # Actualizar disponibilidad del libro a disponible
         libro_prestado.disponibilidad = 'disponible'
